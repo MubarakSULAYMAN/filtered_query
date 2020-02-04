@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 
 
 app = Flask(__name__)
+CORS(app)
 
 
 app.config['DEBUG'] = True
@@ -29,7 +31,6 @@ class RegisteredData(db.Model):
 
 @app.route('/restricted_raw', methods=['GET'])
 def raw_request():
-    # if request.method == 'GET':
     query_term = RegisteredData.query.all()
     results = [
         {
@@ -49,10 +50,10 @@ def raw_request():
 
 @app.route('/filter_by_nin/<nin>', methods=['GET'])
 def nin_request(nin):
-    # if request.method == 'GET':
     query_term = RegisteredData.query.filter_by(nin=nin).all()
     results = [
         {
+            "nin": table_data.nin,
             "first_name": table_data.first_name,
             "last_name": table_data.last_name,
             "middle_name": table_data.middle_name,
@@ -68,12 +69,12 @@ def nin_request(nin):
 
 @app.route('/filter_by_last_name/<last_name>', methods=['GET'])
 def last_name_request(last_name):
-    # if request.method == 'GET':
     query_term = RegisteredData.query.filter_by(last_name=last_name).all()
     results = [
         {
             "nin": table_data.nin,
             "first_name": table_data.first_name,
+            "last_name": table_data.last_name,
             "middle_name": table_data.middle_name,
             "issued_date": table_data.issued_date
         }
@@ -81,28 +82,28 @@ def last_name_request(last_name):
     ]    
 
     JSONObjects = {"count": len(results), "query_term": results}
-    return jsonify(JSONObjects)
+    return jsonify(JSONObjects), 200
 
 
 
 @app.route('/filter_by_date/<issued_date>', methods=['GET'])
 def issued_date_request(issued_date):
-    # if request.method == 'GET':
     query_term = RegisteredData.query.filter_by(issued_date=issued_date).all()
     results = [
         {
             "nin": table_data.nin,
             "first_name": table_data.first_name,
             "last_name": table_data.last_name,
-            "middle_name": table_data.middle_name
+            "middle_name": table_data.middle_name,
+            "issued_date": table_data.issued_date
         }
         for table_data in query_term
     ]    
 
     JSONObjects = {"count": len(results), "query_term": results}
-    return jsonify(JSONObjects)
+    return jsonify(JSONObjects), 200
 
 
 
-if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+#if __name__ == '__main__':
+#    app.run(debug=True, port=5000)
