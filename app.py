@@ -113,10 +113,7 @@ def issued_date_request(issued_date):
         for table_data in query_term
     ]    
 
-    JSONObjects = {
-        "count": len(results), 
-        "query_term": results,
-        "mimetype": application/json},
+    JSONObjects = {"count": len(results), "query_term": results}
     return jsonify(JSONObjects), 200
 
 
