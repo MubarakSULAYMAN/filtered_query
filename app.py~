@@ -8,8 +8,7 @@ CORS(app)
 
 
 app.config['DEBUG'] = True
-# app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:StrongAdminP@ssw0rd@localhost:5432/nin"
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://unuqhtroyxjkwp:322daedc54cc2a558437734eafc61a2ff75ed57814a0d597ae4d891fda59ce48@ec2-52-207-93-32.compute-1.amazonaws.com:5432/d8qirc81vetv7p"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:StrongAdminP@ssw0rd@localhost:5432/nin"
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 db = SQLAlchemy(app)
 
@@ -75,7 +74,7 @@ def nin_request(nin):
 
 
 @app.route('/filter_by_tracking_id/<tracking_id>', methods=['GET'])
-def last_name_request(tracking_id):
+def last_name_request(id):
     query_term = RegisteredData.query.filter_by(tracking_id=tracking_id).all()
     results = [
         {
@@ -96,7 +95,7 @@ def last_name_request(tracking_id):
 
 
 
-@app.route('/filter_by_issued_date/<issued_date>', methods=['GET'])
+@app.route('/filter_by_date/<issued_date>', methods=['GET'])
 def issued_date_request(issued_date):
     query_term = RegisteredData.query.filter_by(issued_date=issued_date).all()
     results = [
