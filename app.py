@@ -7,7 +7,7 @@ app = Flask(__name__)
 CORS(app)
 
 
-app.config['DEBUG'] = True
+# app.config['DEBUG'] = True
 # app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:StrongAdminP@ssw0rd@localhost:5432/nin"
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://unuqhtroyxjkwp:322daedc54cc2a558437734eafc61a2ff75ed57814a0d597ae4d891fda59ce48@ec2-52-207-93-32.compute-1.amazonaws.com:5432/d8qirc81vetv7p"
 SQLALCHEMY_TRACK_MODIFICATIONS = True
@@ -118,5 +118,5 @@ def issued_date_request(issued_date):
 
 
 
-if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+# if __name__ == '__main__':
+#     app.run(debug=True, port=5000)
